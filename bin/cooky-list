@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+
+var logger = require('../lib/logger')
+var request = require('request')
+var chalk = require('chalk')
+
+/**
+ * Padding.
+ */
+
+console.log()
+process.on('exit', function () {
+  console.log()
+})
+
+/**
+ * List repos.
+ */
+
+request({
+  url: 'https://api.github.com/users/front-end-template/repos?access_token=ee2ee768d68058b97365bdb088757676ae619209',
+  headers: {
+    'User-Agent': 'cooky-cli'
+  }
+}, function (err, res, body) {
+  if (err) logger.fatal(err)
+  var requestBody = JSON.parse(body)
+  console.log('requestBody', requestBody)
+  if (Array.isArray(requestBody)) {
+    console.log('  Available official templates:')
+    console.log()
+    requestBody.forEach(function (repo) {
+      console.log(
+        '  ' + chalk.yellow('★') +
+        '  ' + chalk.blue(repo.name) +
+        ' - ' + repo.description)
+    })
+  } else {
+    console.error(requestBody.message)
+  }
+})
