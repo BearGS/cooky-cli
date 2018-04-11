@@ -1,6 +1,6 @@
 {
   "name": "cooky-cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple CLI for scaffolding Front End Projects.",
   "main": "lib/index.js",
   "scripts": {
